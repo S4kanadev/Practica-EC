@@ -334,10 +334,17 @@ moveCursorContinuous proc
 	push ebp
 	mov  ebp, esp
 
+	bucle:
+	call moveCursor					;Cridar subrutina movCursor
 
+	cmp  [tecla], 's'				;Comprobar si la tecla pitjada es igual a 's'
+	je   fi							;Si es igual saltar a fi
+	cmp  [tecla], ' '				;Comprobar si la tecla pitjada es igual a ' ' (espai)
+	je   fi							;Si es igual saltar a fi
 
+	jmp bucle						;Si no es compleix saltar a bucle
 
-
+	fi:
 	mov esp, ebp
 	pop ebp
 	ret
