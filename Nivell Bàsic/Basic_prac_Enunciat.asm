@@ -222,15 +222,6 @@ getMove proc
    cmp  al, 'l'					;Comprobar si la tecla pitjada es mes petita o igual que 'l'
    jg   bucle					;Si la tecla es mes petit que 'i' tornar al bucle
 
-   jmp  fi						;Saltar a fi						
-
-   fi:
-   mov [tecla], al				;Copia la tecla pitjada del registre al a la memoria [tecla]
-   mov esp, ebp
-   pop ebp
-   ret
-
-getMove endp
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
