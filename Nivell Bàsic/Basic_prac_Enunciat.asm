@@ -208,15 +208,31 @@ getMove proc
    mov  eax, 0					;Inicialitzacio del registre eax
 
    bucle:
-   call getch					;Cridar subrutina getch
+   call getch					;Crida subrutina getch
 
-   mov  al, [tecla]				;Copia la tecla pitjada al registre al
+   mov  al, [tecla]				;Copiar la tecla pitjada al registre al
 
-   cmp  al, 's'					;Comprobar si la tecla pitjada es igual a 's'
-   je	fi						;Saltar a fi si es igual
-   cmp  al, ' '					;Comprobar si la tecla pitjada es igual a ' ' (espai)
-   je   fi						;Saltar a fi si es igual
+   cmp  al, 's'					;Comprobar si la tecla es igual a 's'
+   je   fi						;Si es igual saltar a fi
 
+   cmp  al, ' '					;Comprobar si la tecla es igual a ' ' (espai)
+   je   fi						;Si es igual saltar a fi
+
+   cmp  al, 'i'					;Comprobar si la tecla es igual o superior a 'i'
+   jl   bucle					;Si es inferior saltar a bucle
+
+   cmp  al, 'l'					;Comprobar si la tecla es igual o infrior a 'l'
+   jg   bucle					;Si es major saltar a bucle
+
+   jmp  fi
+
+   fi:
+   mov [tecla], al				;Copiar el valor del registre al a [tecla]
+   mov esp, ebp
+   pop ebp
+   ret
+
+getMove endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cridar a la subrutina getMove per a llegir una tecla
@@ -239,17 +255,8 @@ getMove proc
 moveCursor proc
    push ebp
    mov  ebp, esp
-
-   mov  eax, 0					;Inicialització del registre eax
-
-   call getMove					;Cridar la subrutina getMove
-
-   ;cmp  al, 'i'					;Comprobar si la tecla pitjada es 'i'
-   ;je   up						;Si la tecla pitjada es 'i' saltar a l'etiqueta up
-
-   ;cmp  al, 'j'
    
-
+   
    mov esp, ebp
    pop ebp
    ret
