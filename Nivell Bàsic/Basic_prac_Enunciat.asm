@@ -255,8 +255,66 @@ getMove endp
 moveCursor proc
    push ebp
    mov  ebp, esp
+
+   call getMove						;Crida subrutina getMove
+
+   mov  eax, [row]					;Inicialitzacio del registre eax amb el valor de [row]
+   mov  bl,  [col]					;Inicialitzacio del registre bl amb el valor de [col]
+
+   cmp  [tecla], 'i'				;Comprobar si la tecla pitjada es igual a 'i'
+   je   up							;Si es igual saltar a up
    
-   
+   cmp  [tecla], 'j'				;Comprobar si la tecla pitjada es igual a 'j'
+   je   left						;Si es igual saltar a left
+
+   cmp  [tecla], 'k'				;Comprobar si la tecla pitjada es igual a 'k'
+   je   down						;Si es igual saltar a down
+
+   cmp  [tecla], 'l'				;Comprobar si la tecla pitjada es igual a 'l'
+   je   right						;Si es igual saltar a right
+
+   cmp  [tecla], 's'				;Comprobar si la tecla pitjada es igual a 's'
+   je   fi							;Si es igual saltar a fi
+
+   cmp  [tecla], ' '				;Comprobar si la tecla pitjada es igual a ' ' (espai)
+   je   fi
+
+   up:								
+   dec  eax							;Incrementar fila (Decrementar eax)
+   jmp  check_range					;Saltar a check_range
+
+   left:							
+   dec  bl							;Decrementar columna
+   jmp  check_range					;Saltar a check_range
+
+   down:
+   inc  eax							;Decrementar fila (incrementar eax)
+   jmp  check_range					;Saltara a check_range
+
+   right:
+   inc  bl							;Incrementar columna
+   jmp  check_range					;Saltar a check_range
+
+   check_range:						;Comprovar que la fila i la columna estiguin dins dels limits
+   cmp  eax, 1						;limits: ([1..5] i ['A'..'D'])
+   jl   fi
+   cmp  eax, 5
+   jg   fi
+   cmp  bl, 'A'
+   jl   fi
+   cmp  bl, 'D'
+   jg   fi
+
+   mov  [row], eax					;Actualitzar valors de [row]
+   mov  [col], bl					;Actualitzar valors de [col]
+
+   jmp  posCur						;saltar a posCur
+
+   posCur:
+   call posCurScreen				;Cridar subrutina posCurScreen
+   jmp fi
+
+   fi:
    mov esp, ebp
    pop ebp
    ret
