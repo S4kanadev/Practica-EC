@@ -368,11 +368,20 @@ moveCursorContinuous endp
 calcIndex proc
 	push ebp
 	mov  ebp, esp
-	
 
+	mov  eax, 0					;Inicialitzacio del registre eax
+	mov  ebx, 0					;Inicialitzacio del registre ebx
 
+	mov  eax, [row]				;Copiar el contingut de [row] al registre eax
+	mov  bl, [col]				;Copiar el contingut de [col] al registre bl
 
+	sub  ebx, 65				;Convertir la columna a numero
+	shl  eax, 2					;Multiplicar per 4 la fila
+	add  eax, ebx				;Sumar fila mes columna
 
+	shl  eax, 2					;Multiplicar per 4 la suma
+
+	mov  [indexMat], eax		;Copiar el valor de eax a [indexMat]
 
 	mov esp, ebp
 	pop ebp
