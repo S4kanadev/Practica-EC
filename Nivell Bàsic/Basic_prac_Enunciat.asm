@@ -217,12 +217,6 @@ getMove proc
    cmp  al, ' '					;Comprobar si la tecla pitjada es igual a ' ' (espai)
    je   fi						;Saltar a fi si es igual
 
-   cmp  al, 'i'					;Comprobar si la tecla pitjada es mes gran o igual que 'i'
-   jl   bucle					;Si la tecla es mes petit que 'i' tornar al bucle
-   cmp  al, 'l'					;Comprobar si la tecla pitjada es mes petita o igual que 'l'
-   jg   bucle					;Si la tecla es mes petit que 'i' tornar al bucle
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Cridar a la subrutina getMove per a llegir una tecla
