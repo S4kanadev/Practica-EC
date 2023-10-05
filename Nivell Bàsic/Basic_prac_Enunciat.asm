@@ -420,8 +420,8 @@ openCard proc
 	mostrarCarta:
 	call calcIndex
 
-	mov  eax, [gameCards]
-	mov  ebx, [eax+indexMat]
+	mov  eax, [indexMat]
+	mov  ebx, [gameCards+eax]
 	add  ebx, 48
 	mov  [carac], bl
 
@@ -444,9 +444,15 @@ openCardContinuous proc
 	push ebp
 	mov  ebp, esp
 
+	bucle:
+	call openCard
 
+	cmp  [tecla], 's'
+	je   fi
 
+	jmp  bucle
 
+	fi:
 	mov esp, ebp
 	pop ebp
 	ret
