@@ -273,11 +273,11 @@ moveCursor proc
    cmp  [tecla], 'l'				;Comprobar si la tecla pitjada es igual a 'l'
    je   right						;Si es igual saltar a right
 
-   ;cmp  [tecla], 's'				;Comprobar si la tecla pitjada es igual a 's'
-   ;je   fi							;Si es igual saltar a fi
+   cmp  [tecla], 's'				;Comprobar si la tecla pitjada es igual a 's'
+   je   fi							;Si es igual saltar a fi
 
-   ;cmp  [tecla], ' '				;Comprobar si la tecla pitjada es igual a ' ' (espai)
-   ;je   fi
+   cmp  [tecla], ' '				;Comprobar si la tecla pitjada es igual a ' ' (espai)
+   je   fi
 
    up:								
    dec  eax							;Incrementar fila (Decrementar eax)
