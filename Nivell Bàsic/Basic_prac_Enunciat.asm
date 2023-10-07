@@ -419,7 +419,7 @@ openCard proc
 	call moveCursorContinuous		;triar la casella desitjada
 
 	cmp  [tecla], 's'				;compara amb ' ' (espai)
-	je   fi				;si es igual salta a mostraCarta
+	je   fi							;si es igual salta a mostraCarta
 
 	mostrarCarta:
 		call calcIndex				;accedir a les components de la matriu
