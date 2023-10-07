@@ -166,22 +166,22 @@ getch endp
 posCurScreen proc
         push ebp
 	mov  ebp, esp
-
+								;Al no poder accedir M,M utilitxem registres auxiliars
 	mov  eax, 0					;Inicialitzacio del registre eax
 	mov  ebx, 0					;Inicialitzacio del registre ebx
 
-	mov  eax, [row]				;rowScreen formula
-	dec  eax					
-	shl  eax, 1
+	mov  eax, [row]				;rowScreen formula (rowScreen=rowScreenIni+(row*2))
+	dec  eax					;Restem perque quedi entre 0 i 4 
+	shl  eax, 1					;Multipliquem per 2
 	add  eax, [rowScreenIni]
 	mov  [rowScreen], eax
-
-	mov  bl, [col]				;colScreen formula
-	sub  ebx, 65
-	shl  ebx, 2
+								;Al ser un char el posem en un registre de 8 bits
+	mov  bl, [col]				;colScreen formula (colScreen=colScreenIni+(col*4)
+	sub  ebx, 65				;Restem la "A" per obtenir el numemro de columna 
+	shl  ebx, 2					;Multipliquem per 4 
 	add  ebx, [colScreenIni]
 	mov  [colScreen], ebx
-
+								
 	call gotoxy					;Cridar la subrutina gotoxy
 
 	mov esp, ebp
