@@ -449,13 +449,13 @@ openCardContinuous proc
 	mov  ebp, esp
 
 	bucle:
-		call posCurScreen
-		call openCard
+		call posCurScreen			;El numero de la carta cau en el mateix lloc
+		call openCard				;obres la carta on esta el cursor
 
-	cmp  [tecla], 's'
-	je   fi
+		cmp  [tecla], 's'			;Apretar s per sortir 
+		je   fi						;saltes a fi 
 
-	jmp  bucle
+		jmp  bucle
 
 	fi:
 		mov esp, ebp
