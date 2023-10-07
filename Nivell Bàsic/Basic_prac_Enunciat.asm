@@ -357,7 +357,7 @@ moveCursorContinuous endp
 ; i poder obrir les caselles
 ; Calcular l’índex per a accedir a la matriu gameCards en assemblador.
 ; gameCards[row][col] en C, ´es [gameCards+indexMat] en assemblador.
-; on indexMat = (row*4 + col (convertida a número))*4 .
+; on indexMat = ((row-1)*4 + col (convertida a número))*4 .
 ;
 ; Variables utilitzades:
 ; row: fila per a accedir a la matriu gameCards
@@ -373,6 +373,7 @@ calcIndex proc
 	mov  ebx, 0					;Inicialitzacio del registre ebx
 
 	mov  eax, [row]				;Copiar el contingut de [row] al registre eax
+	dec  eax						;La fila es de 1 a 5 i la matriu de 0 a 4
 	mov  bl, [col]				;Copiar el contingut de [col] al registre bl
 								;indexMat = (row*4 + col (convertida a número))*4
 	sub  ebx, 65				;Convertir la columna a numero restant 'A'
@@ -417,8 +418,8 @@ openCard proc
 
 	call moveCursorContinuous		;triar la casella desitjada
 
-	cmp  [tecla], ' '				;compara amb ' ' (espai)
-	je   mostrarCarta				;si es igual salta a mostraCarta
+	cmp  [tecla], 's'				;compara amb ' ' (espai)
+	je   fi				;si es igual salta a mostraCarta
 
 	mostrarCarta:
 		call calcIndex				;accedir a les components de la matriu
@@ -431,6 +432,7 @@ openCard proc
 
 		call printch
 
+	fi: 
 		mov esp, ebp
 		pop ebp
 		ret
