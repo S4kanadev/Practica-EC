@@ -374,8 +374,8 @@ calcIndex proc
 
 	mov  eax, [row]				;Copiar el contingut de [row] al registre eax
 	mov  bl, [col]				;Copiar el contingut de [col] al registre bl
-
-	sub  ebx, 65				;Convertir la columna a numero
+								;indexMat = (row*4 + col (convertida a número))*4
+	sub  ebx, 65				;Convertir la columna a numero restant 'A'
 	shl  eax, 2					;Multiplicar per 4 la fila
 	add  eax, ebx				;Sumar fila mes columna
 
@@ -412,24 +412,28 @@ openCard proc
 	push ebp
 	mov  ebp, esp
 
-	call moveCursorContinuous
+	mov eax, 0
+	mov ebx, 0
 
-	cmp  [tecla], ' '
-	je   mostrarCarta
+	call moveCursorContinuous		;triar la casella desitjada
+
+	cmp  [tecla], ' '				;compara amb ' ' (espai)
+	je   mostrarCarta				;si es igual salta a mostraCarta
 
 	mostrarCarta:
-	call calcIndex
+		call calcIndex				;accedir a les components de la matriu
 
-	mov  eax, [indexMat]
-	mov  ebx, [gameCards+eax]
-	add  ebx, 48
-	mov  [carac], bl
+		mov  eax, [indexMat]		;index on esta el cursor
+		
+		mov  ebx, [gameCards+eax]
+		add  ebx, 48				;48 = 0 per obtenir el numero al girar la carta
+		mov  [carac], bl
 
-	call printch
+		call printch
 
-	mov esp, ebp
-	pop ebp
-	ret
+		mov esp, ebp
+		pop ebp
+		ret
 
 openCard endp
 
@@ -445,7 +449,8 @@ openCardContinuous proc
 	mov  ebp, esp
 
 	bucle:
-	call openCard
+		call posCurScreen
+		call openCard
 
 	cmp  [tecla], 's'
 	je   fi
@@ -453,11 +458,10 @@ openCardContinuous proc
 	jmp  bucle
 
 	fi:
-	mov esp, ebp
-	pop ebp
-	ret
+		mov esp, ebp
+		pop ebp
+		ret
 
 openCardContinuous endp
-
 
 END
