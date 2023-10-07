@@ -205,12 +205,12 @@ getMove proc
    push ebp
    mov  ebp, esp
 
-   mov  eax, 0					;Inicialitzacio del registre eax
+   mov  eax, 0					;Inicialitzacio del registre auxiliar eax
 
    bucle:
-   call getch					;Crida subrutina getch
+   call getch					;Crida subrutina getch (llegeix caracter)
 
-   mov  al, [tecla]				;Copiar la tecla pitjada al registre al
+   mov  al, [tecla]				;Copiar la tecla apretada al registre al (8 bits perque es char)
 
    cmp  al, 's'					;Comprobar si la tecla es igual a 's'
    je   fi						;Si es igual saltar a fi
