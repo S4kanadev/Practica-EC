@@ -208,7 +208,7 @@ getMove proc
    mov  eax, 0					;Inicialitzacio del registre auxiliar eax
 
    bucle:
-   call getch					;Crida subrutina getch (llegeix caracter)
+		call getch				;Crida subrutina getch (llegeix caracter)
 
    mov  al, [tecla]				;Copiar la tecla apretada al registre al (8 bits perque es char)
 
@@ -227,10 +227,10 @@ getMove proc
    jmp  fi
 
    fi:
-   mov [tecla], al				;Copiar el valor del registre al a [tecla]
-   mov esp, ebp
-   pop ebp
-   ret
+	   mov [tecla], al			;Copiar el valor del registre al a [tecla]
+	   mov esp, ebp
+	   pop ebp
+	   ret
 
 getMove endp
 
@@ -256,7 +256,7 @@ moveCursor proc
    push ebp
    mov  ebp, esp
 
-   call getMove						;Crida subrutina getMove
+   call getMove						;Crida subrutina getMove (llegeix tecla)
 
    mov  eax, [row]					;Inicialitzacio del registre eax amb el valor de [row]
    mov  bl,  [col]					;Inicialitzacio del registre bl amb el valor de [col]
@@ -280,44 +280,44 @@ moveCursor proc
    je   fi
 
    up:								
-   dec  eax							;Incrementar fila (Decrementar eax)
-   jmp  check_range					;Saltar a check_range
+		dec  eax					;Incrementar fila (Decrementar eax)
+		jmp  check_range			;Saltar a check_range
 
    left:							
-   dec  bl							;Decrementar columna
-   jmp  check_range					;Saltar a check_range
+	   dec  bl						;Decrementar columna
+	   jmp  check_range				;Saltar a check_range
 
    down:
-   inc  eax							;Decrementar fila (incrementar eax)
-   jmp  check_range					;Saltara a check_range
+	   inc  eax						;Decrementar fila (incrementar eax)
+	   jmp  check_range				;Saltara a check_range
 
    right:
-   inc  bl							;Incrementar columna
-   jmp  check_range					;Saltar a check_range
+	   inc  bl						;Incrementar columna
+	   jmp  check_range				;Saltar a check_range
 
    check_range:						;Comprovar que la fila i la columna estiguin dins dels limits
-   cmp  eax, 1						;limits: ([1..5] i ['A'..'D'])
-   jl   fi
-   cmp  eax, 5
-   jg   fi
-   cmp  bl, 'A'
-   jl   fi
-   cmp  bl, 'D'
-   jg   fi
+	   cmp  eax, 1					;limits: ([1..5] i ['A'..'D'])
+	   jl   fi
+	   cmp  eax, 5
+	   jg   fi
+	   cmp  bl, 'A'
+	   jl   fi
+	   cmp  bl, 'D'
+	   jg   fi
 
-   mov  [row], eax					;Actualitzar valors de [row]
-   mov  [col], bl					;Actualitzar valors de [col]
+	   mov  [row], eax				;Actualitzar valors de [row]
+	   mov  [col], bl				;Actualitzar valors de [col]
 
-   jmp  posCur						;saltar a posCur
+	   jmp  posCur					;saltar a posCur 
 
    posCur:
-   call posCurScreen				;Cridar subrutina posCurScreen
-   jmp fi
+	   call posCurScreen			;Cridar subrutina posCurScreen (posiciona cursor)
+	   jmp fi
 
    fi:
-   mov esp, ebp
-   pop ebp
-   ret
+	   mov esp, ebp
+	   pop ebp
+	   ret
 
 moveCursor endp
 
